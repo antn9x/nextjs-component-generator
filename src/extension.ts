@@ -22,11 +22,8 @@ export async function activate(context: vscode.ExtensionContext) {
       moduleList.push(name);
     }
   }
-  context.workspaceState.update('containers', moduleList);
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand('react-component-generator.createNewPage', async () => {
+  // context.workspaceState.update('containers', moduleList);
+  let createPageCommand = vscode.commands.registerCommand('react-component-generator.createNewPage', async () => {
     const page = await vscode.window.showInputBox({
       value: '',
       placeHolder: 'Page name (Pascal case)',
@@ -35,6 +32,9 @@ export async function activate(context: vscode.ExtensionContext) {
       //   return text === '123' ? 'Not 123!' : null;
       // }
     });
+    if (!page) {
+      return vscode.window.showInformationMessage('Cancel create!');
+    }
     const pageStr = pageTemplate(page);
     const pageData = Buffer.from(pageStr, 'utf8');
 
@@ -50,10 +50,48 @@ export async function activate(context: vscode.ExtensionContext) {
     await vscode.workspace.fs.writeFile(fileIndexUri, indexData);
     // The code you place here will be executed every time your command is executed
     // Display a message box to the user
+    moduleList.push(page);
     vscode.window.showInformationMessage('Generated page!');
   });
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(createPageCommand);
+  let createComponentCommand = vscode.commands.registerCommand('react-component-generator.createNewComponent', async () => {
+    const module = await vscode.window.showQuickPick(moduleList, {
+      placeHolder: 'Select module',
+      // onDidSelectItem: item => vscode.window.showInformationMessage(`Focus ${++i}: ${item}`)
+    });
+    if (!module) {
+      return vscode.window.showInformationMessage('Cancel create!');
+    }
+    const page = await vscode.window.showInputBox({
+      value: '',
+      placeHolder: 'Page name (Pascal case)',
+      // validateInput: text => {
+      //   vscode.window.showInformationMessage(`Validating: ${text}`);
+      //   return text === '123' ? 'Not 123!' : null;
+      // }
+    });
+    if (!page) {
+      return vscode.window.showInformationMessage('Cancel create component!');
+    }
+    const isCommon = module === moduleList[0];
+    const filePath = isCommon ?
+      posix.join(folderUri.path, 'src', 'components', `${page}.js`) :
+      posix.join(folderUri.path, 'src', 'containers', module, 'components', `${page}.js`);
+    const fileIndexUri = folderUri.with({ path: filePath });
+
+    if (!isCommon) {
+    }
+
+    const indexStr = componentTemplate(page);
+    const indexData = Buffer.from(indexStr, 'utf8');
+    await vscode.workspace.fs.writeFile(fileIndexUri, indexData);
+    // The code you place here will be executed every time your command is executed
+    // Display a message box to the user
+    vscode.window.showInformationMessage('Generated component!');
+  });
+
+  context.subscriptions.push(createComponentCommand);
 }
 
 // this method is called when your extension is deactivated
