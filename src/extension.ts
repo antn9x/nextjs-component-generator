@@ -10,7 +10,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
-  console.log('Congratulations, your extension "react-component-generator" is now active!');
+  console.log('Congratulations, your extension "nextjs-component-generator" is now active!');
   if (!vscode.workspace.workspaceFolders) {
     return vscode.window.showInformationMessage('No folder or workspace opened');
   }
@@ -23,7 +23,7 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   }
   // context.workspaceState.update('containers', moduleList);
-  let createPageCommand = vscode.commands.registerCommand('react-component-generator.createNewPage', async () => {
+  let createPageCommand = vscode.commands.registerCommand('nextjs-component-generator.createNewPage', async () => {
     const page = await vscode.window.showInputBox({
       value: '',
       placeHolder: 'Page name (Pascal case)',
@@ -55,7 +55,7 @@ export async function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(createPageCommand);
-  let createComponentCommand = vscode.commands.registerCommand('react-component-generator.createNewComponent', async () => {
+  let createComponentCommand = vscode.commands.registerCommand('nextjs-component-generator.createNewComponent', async () => {
     const module = await vscode.window.showQuickPick(moduleList, {
       placeHolder: 'Select module',
       // onDidSelectItem: item => vscode.window.showInformationMessage(`Focus ${++i}: ${item}`)

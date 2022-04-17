@@ -1,8 +1,10 @@
 {
-	"name": "react-component-generator",
-	"displayName": "react-component-generator",
+	"name": "nextjs-component-generator",
+	"displayName": "nextjs-component-generator",
 	"description": "generator new component with template",
 	"version": "0.0.1",
+  "publisher": "antn9x",
+  "repository": "https://github.com/antn9x/nextjs-component-generator",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
@@ -10,18 +12,18 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:react-component-generator.createNewComponent",
-		"onCommand:react-component-generator.createNewPage"
+		"onCommand:nextjs-component-generator.createNewComponent",
+		"onCommand:nextjs-component-generator.createNewPage"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "react-component-generator.createNewComponent",
+				"command": "nextjs-component-generator.createNewComponent",
 				"title": "React components generator: Create new component"
 			},
 			{
-				"command": "react-component-generator.createNewPage",
+				"command": "nextjs-component-generator.createNewPage",
 				"title": "React components generator: Create new page"
 			}
 		]
