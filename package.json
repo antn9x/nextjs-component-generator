@@ -2,9 +2,9 @@
 	"name": "nextjs-component-generator",
 	"displayName": "nextjs-component-generator",
 	"description": "generator new component with template",
-	"version": "0.0.1",
-  "publisher": "antn9x",
-  "repository": "https://github.com/antn9x/nextjs-component-generator",
+	"version": "0.0.2",
+	"publisher": "antn9x",
+	"repository": "https://github.com/antn9x/nextjs-component-generator",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
@@ -20,15 +20,16 @@
 		"commands": [
 			{
 				"command": "nextjs-component-generator.createNewComponent",
-				"title": "React components generator: Create new component"
+				"title": "Next-JS components generator: Create new component"
 			},
 			{
 				"command": "nextjs-component-generator.createNewPage",
-				"title": "React components generator: Create new page"
+				"title": "Next-JS components generator: Create new page"
 			}
 		]
 	},
 	"scripts": {
+		"package": "vsce package",
 		"vscode:prepublish": "yarn run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
