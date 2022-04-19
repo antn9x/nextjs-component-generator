@@ -12,6 +12,10 @@ Create project folders structure:
  - `pages`
  - `src/containers`
 
+## Commands
+ - `Next-JS components generator: Create new component`
+ - `Next-JS components generator: Create new page`
+
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
