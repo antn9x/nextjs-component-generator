@@ -82,8 +82,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
     if (!isCommon) {
     }
-
-    const indexStr = componentTemplate(page);
+    const props = await vscode.window.showInputBox({
+      value: '',
+      placeHolder: 'Props list (Separate by comma)',
+    });
+    const indexStr = componentTemplate(page,props);
     const indexData = Buffer.from(indexStr, 'utf8');
     await vscode.workspace.fs.writeFile(fileIndexUri, indexData);
     // The code you place here will be executed every time your command is executed

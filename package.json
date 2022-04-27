@@ -2,7 +2,7 @@
 	"name": "nextjs-component-generator",
 	"displayName": "nextjs-component-generator",
 	"description": "generator new component with template",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "antn9x",
 	"repository": "https://github.com/antn9x/nextjs-component-generator",
 	"engines": {
@@ -31,9 +31,9 @@
 	"scripts": {
 		"deploy": "vsce package",
 		"vscode:prepublish": "yarn run compile",
-    "compile": "webpack",
-    "package": "webpack --mode production --devtool hidden-source-map",
-    "watch": "webpack --watch",
+		"compile": "webpack",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"watch": "webpack --watch",
 		"pretest": "yarn run compile && yarn run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js"
@@ -43,6 +43,7 @@
 		"@types/lodash": "^4.14.181",
 		"@types/mocha": "^9.1.0",
 		"@types/node": "14.x",
+		"@types/pluralize": "^0.0.29",
 		"@types/vscode": "^1.66.0",
 		"@typescript-eslint/eslint-plugin": "^5.16.0",
 		"@typescript-eslint/parser": "^5.16.0",
@@ -51,9 +52,12 @@
 		"glob": "^7.2.0",
 		"lodash": "^4.17.21",
 		"mocha": "^9.2.2",
-    "ts-loader": "^9.2.8",
-    "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2",
-		"typescript": "^4.5.5"
+		"ts-loader": "^9.2.8",
+		"typescript": "^4.5.5",
+		"webpack": "^5.70.0",
+		"webpack-cli": "^4.9.2"
+	},
+	"dependencies": {
+		"pluralize": "^8.0.0"
 	}
 }
