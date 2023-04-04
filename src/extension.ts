@@ -75,10 +75,6 @@ export async function activate(context: vscode.ExtensionContext) {
       return vscode.window.showInformationMessage('Cancel create component!');
     }
     const isCommon = module === moduleList[0];
-    const filePath = isCommon ?
-      posix.join(folderUri.path, 'src', 'components', `${page}.js`) :
-      posix.join(folderUri.path, 'src', 'containers', module, 'components', `${page}.js`);
-    const fileIndexUri = folderUri.with({ path: filePath });
 
     if (!isCommon) {
     }
@@ -86,9 +82,27 @@ export async function activate(context: vscode.ExtensionContext) {
       value: '',
       placeHolder: 'Props list (Separate by comma)',
     });
-    const indexStr = componentTemplate(page,props);
-    const indexData = Buffer.from(indexStr, 'utf8');
-    await vscode.workspace.fs.writeFile(fileIndexUri, indexData);
+    const lang = vscode.workspace
+      .getConfiguration('nextjs-component-generator')
+      .get('language');
+    console.log(lang);
+    if (lang === 'js') {
+      const indexStr = componentTemplate(page, props);
+      const indexData = Buffer.from(indexStr, 'utf8');
+      const filePath = isCommon ?
+        posix.join(folderUri.path, 'src', 'components', `${page}.js`) :
+        posix.join(folderUri.path, 'src', 'containers', module, 'components', `${page}.js`);
+      const fileIndexUri = folderUri.with({ path: filePath });
+      await vscode.workspace.fs.writeFile(fileIndexUri, indexData);
+    } else if (lang === 'ts') {
+      const indexStr = componentTemplate(page, props);
+      const indexData = Buffer.from(indexStr, 'utf8');
+      const filePath = isCommon ?
+        posix.join(folderUri.path, 'src', 'components', `${page}.ts`) :
+        posix.join(folderUri.path, 'src', 'pages', module, 'components', `${page}.ts`);
+      const fileIndexUri = folderUri.with({ path: filePath });
+      await vscode.workspace.fs.writeFile(fileIndexUri, indexData);
+    }
     // The code you place here will be executed every time your command is executed
     // Display a message box to the user
     vscode.window.showInformationMessage('Generated component!');
